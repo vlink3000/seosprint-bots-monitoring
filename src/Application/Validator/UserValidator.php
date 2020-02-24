@@ -12,7 +12,7 @@ class UserValidator implements UserValidatorInterface
     public function validateUserData(array $userData): array
     {
         $keys = [
-            'userId',
+            'seosprintId',
             'userName',
             'balance'
         ];

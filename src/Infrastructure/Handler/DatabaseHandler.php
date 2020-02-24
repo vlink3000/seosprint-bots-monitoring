@@ -2,25 +2,27 @@
 
 namespace App\Infrastructure\Handler;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+
 class DatabaseHandler
 {
-    public function getConnection()
+    public function getConnection(): Capsule
     {
-        $host = "localhost";
-        $username = "username";
-        $pass = "password";
+        $capsule = new Capsule;
 
-        try {
-            $conn = new \PDO("mysql:host=$host;dbname=myDB", $username, $pass);
-            // set the PDO error mode to exception
-            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
-        }
-        catch(\PDOException $e)
-        {
-             var_dump("Connection failed: " . $e->getMessage());die();
-        }
+        $capsule->addConnection([
+            "driver" => "mysql",
+            "host" =>"localhost",
+            "port" => "8889",
+            "database" => "seosprint_bots_monitoring",
+            "username" => "root",
+            "password" => "root"
+        ]);
 
-//        var_dump("Connected successfully");die();
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
+        $capsule->bootEloquent();
+
+        return $capsule;
     }
 }

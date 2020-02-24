@@ -9,7 +9,7 @@ interface BotRepositoryInterface
     /**
      * @param User $user
      *
-     * @return bool
+     * @return void
      */
-    public function save(User $user): bool;
+    public function save(User $user): void;
 }

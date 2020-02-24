@@ -2,43 +2,45 @@
 
 namespace App\Domain\User\Entity;
 
+use Carbon\Carbon;
+
 class User
 {
     /**
-     * @var int|null
+     * @var string|null
      */
-    private $userId;
+    private $seosprintId;
     /**
      * @var string|null
      */
     private $userName;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $balance;
     /**
-     * @var string
+     * @var Carbon
      */
-    private $time;
+    private $dateTime;
 
     /**
-     * @return int|null
+     * @return null|string
      */
-    public function getUserId(): ?int
+    public function getSeosprintId(): ?string
     {
-        return $this->userId;
+        return $this->seosprintId;
     }
 
     /**
-     * @param int|null $userId
+     * @param null|string $seosprintId
      */
-    public function setUserId(?int $userId): void
+    public function setSeosprintId(?string $seosprintId): void
     {
-        $this->userId = $userId;
+        $this->seosprintId = $seosprintId;
     }
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getUserName(): ?string
     {
@@ -46,7 +48,7 @@ class User
     }
 
     /**
-     * @param string|null $userName
+     * @param null|string $userName
      */
     public function setUserName(?string $userName): void
     {
@@ -54,34 +56,34 @@ class User
     }
 
     /**
-     * @return string|null
+     * @return float|null
      */
-    public function getBalance(): ?string
+    public function getBalance(): ?float
     {
         return $this->balance;
     }
 
     /**
-     * @param string|null $balance
+     * @param float|null $balance
      */
-    public function setBalance(?string $balance): void
+    public function setBalance(?float $balance): void
     {
         $this->balance = $balance;
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getTime(): string
+    public function getDateTime(): Carbon
     {
-        return $this->time;
+        return $this->dateTime;
     }
 
     /**
-     * @param string $time
+     * @param Carbon $dateTime
      */
-    public function setTime(string $time): void
+    public function setDateTime(Carbon $dateTime): void
     {
-        $this->time = $time;
+        $this->dateTime = $dateTime;
     }
 }

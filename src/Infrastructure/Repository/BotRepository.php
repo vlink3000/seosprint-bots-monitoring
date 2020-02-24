@@ -11,19 +11,25 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @param User $user
      *
-     * @return bool
+     * @return void
      */
-    public function save(User $user): bool
+    public function save(User $user): void
     {
-        $userId = $user->getUserId();
-        $userName = $user->getUserName();
-        $balance = $user->getBalance();
-        $time = $user->getTime();
-
         $databaseHandler = new DatabaseHandler();
+        $eloquent = $databaseHandler->getConnection();
 
-        $databaseHandler->getConnection();
-
-//        var_dump($time);die();
+        try {
+            $eloquent->table('users')->updateOrInsert(['seosprint_id' => $user->getSeosprintId()],
+                [
+                    'user_name' => $user->getUserName(),
+                    'balance' => $user->getBalance(),
+                    'time' => $user->getDateTime()
+                ]
+            );
+        } catch (\PDOException $exception) {
+            $eloquent->table('logs')->insert([
+                'message' => $exception->getMessage()
+            ]);
+        }
     }
 }

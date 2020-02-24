@@ -4,6 +4,7 @@ namespace App\Domain\User\Factory;
 
 use App\Application\Validator\UserValidator;
 use App\Domain\User\Entity\User;
+use Carbon\Carbon;
 
 class UserFactory
 {
@@ -19,10 +20,10 @@ class UserFactory
 
         $user = new User();
 
-        $user->setUserId($validatedUser['userId']);
+        $user->setSeosprintId($validatedUser['seosprintId']);
         $user->setUserName($validatedUser['userName']);
         $user->setBalance($validatedUser['balance']);
-        $user->setTime(date("h:i:s"));
+        $user->setDateTime(Carbon::now());
 
         return $user;
     }

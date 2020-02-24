@@ -14,9 +14,13 @@ $controller = new \App\Application\Controller\ApiController(
 );
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $requestJson = file_get_contents('php://input');
     $requestArr = json_decode($requestJson, TRUE);
     $controller->processRequest($requestArr);
+
 } else {
-    echo json_encode(['status' => 'up']);
+    echo json_encode([
+        'status' => 'up'
+    ]);
 }
