@@ -8,6 +8,19 @@ use App\Infrastructure\Handler\DatabaseHandler;
 
 class BotRepository implements BotRepositoryInterface
 {
+    private $databaseHandler;
+
+    /**
+     * BotRepository constructor.
+     *
+     * @param DatabaseHandler $databaseHandler
+     */
+    public function __construct(DatabaseHandler $databaseHandler)
+    {
+        $this->databaseHandler = $databaseHandler;
+    }
+
+
     /**
      * @param User $user
      *
@@ -15,8 +28,7 @@ class BotRepository implements BotRepositoryInterface
      */
     public function save(User $user): void
     {
-        $databaseHandler = new DatabaseHandler();
-        $eloquent = $databaseHandler->getConnection();
+        $eloquent = $this->databaseHandler->getConnection();
 
         try {
             $eloquent->table('users')->updateOrInsert(['seosprint_id' => $user->getSeosprintId()],
@@ -30,6 +42,24 @@ class BotRepository implements BotRepositoryInterface
             $eloquent->table('logs')->insert([
                 'message' => $exception->getMessage()
             ]);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function displayDashboard(): array
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table('users')->get()->toArray();
+        } catch (\PDOException $exception) {
+            $eloquent->table('logs')->insert([
+                'message' => $exception->getMessage()
+            ]);
+
+            return [];
         }
     }
 }

@@ -12,4 +12,9 @@ interface BotRepositoryInterface
      * @return void
      */
     public function save(User $user): void;
+
+    /***
+     * @return array
+     */
+    public function displayDashboard(): array;
 }
