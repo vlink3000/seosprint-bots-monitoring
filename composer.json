@@ -6,7 +6,8 @@
     },
     "require": {
         "php" : "^7.1",
-        "illuminate/database": "^6.16"
+        "illuminate/database": "^6.16",
+        "eftec/bladeone": "^3.36"
     },
     "autoload": {
         "psr-4": {

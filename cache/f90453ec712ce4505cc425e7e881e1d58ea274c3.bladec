@@ -1,0 +1,5 @@
+<h1>Hello!</h1>
+<?php $__currentLoopData = $users; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
+ <?php echo static::e($user->id); ?>
+
+<?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>

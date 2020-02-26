@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use eftec\bladeone\BladeOne;
+
 $autoload = require 'vendor/autoload.php';
 $autoload->add('App\\', __DIR__ . '/src/');
 
@@ -24,21 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $botRepository
     );
 
+    $views = __DIR__ . '/public/views';
+    $cache = __DIR__ . '/cache';
+    $blade = new BladeOne($views,$cache,BladeOne::MODE_AUTO);
+
     $users = $controller->displayDashboard();
 
-    echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">';
-    echo '<table class="table table-dark table-striped>';
-    echo '    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>';
-    echo '<tbody>';
-    foreach ($users as $user) {
-        echo '<tr><td>'.$user->id.'</td></tr>';
+    try {
+        echo $blade->run("dashboard", array('users' => $users));
+    } catch (Exception $e) {
+        echo('something went wrong in blade package: ' . $e->getMessage());
     }
-    echo '</tbody>';
-    echo '</table>';
 }
