@@ -1,5 +1,9 @@
-<h1>Hello!</h1>
-<?php $__currentLoopData = $users; $this->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $this->incrementLoopIndices(); $loop = $this->getFirstLoop(); ?>
- <?php echo static::e($user->id); ?>
+<?php $_shouldextend[1]=1; ?>
 
-<?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+<?php $this->startSection('content'); ?>
+ <div>
+ <p>This is content belongs to the child view</p>
+ <p>The rest of the items on the page have been defined in the parent view</p>
+ </div>
+<?php $this->stopSection(); ?>
+<?php if (@$_shouldextend[1]) { echo $this->runChild('layouts.main'); } ?>
