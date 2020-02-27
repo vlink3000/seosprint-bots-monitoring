@@ -2,7 +2,9 @@
     "name": "vlink3000/vlink-ddd",
     "license": "MIT",
     "config": {
-      "secure-http": false
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "sort-packages": true
     },
     "require": {
         "php" : "^7.1",
@@ -18,6 +20,6 @@
         "phpunit/phpunit": "^7"
     },
     "scripts": {
-        "phpunit": "vendor/bin/phpunit"
+        "test": "phpunit"
     }
 }
