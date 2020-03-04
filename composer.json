@@ -7,9 +7,10 @@
         "sort-packages": true
     },
     "require": {
-        "php" : "^7.1",
+        "php": "^7.1",
+        "eftec/bladeone": "^3.36",
         "illuminate/database": "^6.16",
-        "eftec/bladeone": "^3.36"
+        "symfony/http-foundation": "^4.2"
     },
     "autoload": {
         "psr-4": {

@@ -2,31 +2,12 @@
 
 namespace App\Application\Controller;
 
-use App\Domain\Repository\BotRepositoryInterface;
 use App\Domain\User\Factory\UserFactory;
+use App\Infrastructure\Handler\DatabaseHandler;
+use App\Infrastructure\Repository\BotRepository;
 
 class ApiController
 {
-    /** @var UserFactory */
-    private $userFactory;
-
-    /** @var BotRepositoryInterface */
-    private $botRepository;
-
-    /**
-     * ApiController constructor.
-     *
-     * @param UserFactory $userFactory
-     * @param BotRepositoryInterface $botRepository
-     */
-    public function __construct(
-        UserFactory $userFactory,
-        BotRepositoryInterface $botRepository
-    ) {
-        $this->userFactory = $userFactory;
-        $this->botRepository = $botRepository;
-    }
-
     /**
      * @param array $request
      *
@@ -34,7 +15,11 @@ class ApiController
      */
     public function processRequest(array $request): void
     {
-        $user = $this->userFactory->createFromRequest($request);
-        $this->botRepository->save($user);
+        $userFactory = new UserFactory();
+        $databaseHandler = new DatabaseHandler();
+        $botRepository = new BotRepository($databaseHandler);
+
+        $user = $userFactory->createFromRequest($request);
+        $botRepository->save($user);
     }
 }
