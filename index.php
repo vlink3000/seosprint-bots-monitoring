@@ -3,22 +3,16 @@
 declare(strict_types=1);
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Application\Helpers\Router\WebRoutes;
-use App\Application\Helpers\Router\ApiRoutes;
+use App\Application\Helpers\Router\RouteRecognizer;
 
 $autoload = require 'vendor/autoload.php';
 $autoload->add('App\\', __DIR__ . '/src/');
 
 $request = Request::createFromGlobals();
 
-$webHandler = new WebRoutes();
-$apiHandler = new ApiRoutes();
+$routeRecognizer = new RouteRecognizer();
+$routeRecognizer->recognizeRoute($request->getRequestUri());
 
-strpos($request->getRequestUri(),'api/') == true ?
-    $apiHandler->index():
-    $webHandler->index();
-
-die();
 //
 //switch ($request->getPathInfo()) {
 //    case '/':
