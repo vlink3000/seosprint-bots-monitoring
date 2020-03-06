@@ -55,7 +55,7 @@ class DashboardController
     private function setupBlade(): BladeOne
     {
         $views = 'public/views';
-        $cache = 'cache';
+        $cache = 'public/cache';
 
         return new BladeOne($views, $cache,BladeOne::MODE_AUTO);
     }
