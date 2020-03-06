@@ -3,6 +3,8 @@
 namespace App\Application\Controller;
 
 use App\Domain\Repository\BotRepositoryInterface;
+use eftec\bladeone\BladeOne;
+use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController
 {
@@ -26,5 +28,35 @@ class DashboardController
     public function displayDashboard(): array
     {
         return $this->botRepository->displayDashboard();
+    }
+
+    /**
+     * @return array
+     */
+    public function displayBotsList(): array
+    {
+        return $this->botRepository->displayDashboard();
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function pageNotFound(): string
+    {
+        $blade = $this->setupBlade();
+
+        return $blade->run("404");
+    }
+
+    /**
+     * @return BladeOne
+     */
+    private function setupBlade(): BladeOne
+    {
+        $views = 'public/views';
+        $cache = 'cache';
+
+        return new BladeOne($views, $cache,BladeOne::MODE_AUTO);
     }
 }
