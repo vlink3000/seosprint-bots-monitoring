@@ -3,39 +3,40 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Repository\BotRepositoryInterface;
-use App\Domain\User\Entity\User;
-use App\Infrastructure\Handler\DatabaseHandler;
+use App\Domain\Bot\Entity\Bot;
+use App\Infrastructure\Connector\DatabaseConnector;
 
 class BotRepository implements BotRepositoryInterface
 {
+    private const TABLE = 'bots';
+
     private $databaseHandler;
 
     /**
      * BotRepository constructor.
      *
-     * @param DatabaseHandler $databaseHandler
+     * @param DatabaseConnector $databaseHandler
      */
-    public function __construct(DatabaseHandler $databaseHandler)
+    public function __construct(DatabaseConnector $databaseHandler)
     {
         $this->databaseHandler = $databaseHandler;
     }
 
-
     /**
-     * @param User $user
+     * @param Bot $bot
      *
      * @return void
      */
-    public function save(User $user): void
+    public function save(Bot $bot): void
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
-            $eloquent->table('users')->updateOrInsert(['seosprint_id' => $user->getSeosprintId()],
+            $eloquent->table(self::TABLE)->updateOrInsert(['seosprint_id' => $bot->getSeosprintId()],
                 [
-                    'user_name' => $user->getUserName(),
-                    'balance' => $user->getBalance(),
-                    'time' => $user->getDateTime()
+                    'bot_name' => $bot->getUserName(),
+                    'balance' => $bot->getBalance(),
+                    'time' => $bot->getDateTime()
                 ]
             );
         } catch (\PDOException $exception) {
@@ -48,12 +49,12 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @return array
      */
-    public function displayDashboard(): array
+    public function getBots(): array
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
-            return $eloquent->table('users')->get()->toArray();
+            return $eloquent->table(self::TABLE)->get()->toArray();
         } catch (\PDOException $exception) {
             $eloquent->table('logs')->insert([
                 'message' => $exception->getMessage()

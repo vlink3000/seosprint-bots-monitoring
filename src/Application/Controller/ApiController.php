@@ -2,8 +2,8 @@
 
 namespace App\Application\Controller;
 
-use App\Domain\User\Factory\UserFactory;
-use App\Infrastructure\Handler\DatabaseHandler;
+use App\Domain\Bot\Factory\BotFactory;
+use App\Infrastructure\Connector\DatabaseConnector;
 use App\Infrastructure\Repository\BotRepository;
 
 class ApiController
@@ -15,11 +15,11 @@ class ApiController
      */
     public function processRequest(array $request): void
     {
-        $userFactory = new UserFactory();
-        $databaseHandler = new DatabaseHandler();
-        $botRepository = new BotRepository($databaseHandler);
+        $userFactory = new BotFactory();
+        $databaseConnector = new DatabaseConnector();
+        $botRepository = new BotRepository($databaseConnector);
 
-        $user = $userFactory->createFromRequest($request);
-        $botRepository->save($user);
+        $bot = $userFactory->createFromRequest($request);
+        $botRepository->save($bot);
     }
 }

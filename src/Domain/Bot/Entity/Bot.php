@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\User\Entity;
+namespace App\Domain\Bot\Entity;
 
 use Carbon\Carbon;
 
-class User
+class Bot
 {
     /**
      * @var string|null
@@ -13,7 +13,7 @@ class User
     /**
      * @var string|null
      */
-    private $userName;
+    private $botName;
     /**
      * @var float|null
      */
@@ -42,17 +42,17 @@ class User
     /**
      * @return null|string
      */
-    public function getUserName(): ?string
+    public function getBotName(): ?string
     {
-        return $this->userName;
+        return $this->botName;
     }
 
     /**
-     * @param null|string $userName
+     * @param null|string $botName
      */
-    public function setUserName(?string $userName): void
+    public function setBotName(?string $botName): void
     {
-        $this->userName = $userName;
+        $this->botName = $botName;
     }
 
     /**

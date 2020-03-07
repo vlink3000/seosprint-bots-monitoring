@@ -10,11 +10,12 @@ class RouteRecognizer
 {
     public function recognizeRoute(Request $request): void
     {
-        $webHandler = new WebRoutes();
-        $apiHandler = new ApiRoutes();
-
-        strpos($request->getRequestUri(),'api/') == true ?
-        $apiHandler->handleRoute($request):
-        $webHandler->handleRoute($request);
+        if (strpos($request->getRequestUri(),'api/') === false) {
+            $webHandler = new WebRoutes();
+            $webHandler->handleRoute($request);
+        } else {
+            $apiHandler = new ApiRoutes();
+            $apiHandler->handleRoute($request);
+        }
     }
 }

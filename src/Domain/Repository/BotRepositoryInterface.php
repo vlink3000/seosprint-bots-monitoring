@@ -2,19 +2,19 @@
 
 namespace App\Domain\Repository;
 
-use App\Domain\User\Entity\User;
+use App\Domain\Bot\Entity\Bot;
 
 interface BotRepositoryInterface
 {
     /**
-     * @param User $user
+     * @param Bot $bot
      *
      * @return void
      */
-    public function save(User $user): void;
+    public function save(Bot $bot): void;
 
     /***
      * @return array
      */
-    public function displayDashboard(): array;
+    public function getBots(): array;
 }

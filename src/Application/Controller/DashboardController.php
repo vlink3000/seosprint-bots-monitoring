@@ -4,10 +4,12 @@ namespace App\Application\Controller;
 
 use App\Domain\Repository\BotRepositoryInterface;
 use eftec\bladeone\BladeOne;
-use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController
 {
+    private const VIEWS_PATH = "public/views";
+    private const CACHE_PATH = "public/cache";
+
     /** @var BotRepositoryInterface */
     private $botRepository;
 
@@ -16,26 +18,21 @@ class DashboardController
      *
      * @param BotRepositoryInterface $botRepository
      */
-    public function __construct(
-        BotRepositoryInterface $botRepository
-    ) {
+    public function __construct(BotRepositoryInterface $botRepository)
+    {
         $this->botRepository = $botRepository;
     }
 
     /**
-     * @return array
+     * @return string
+     * @throws \Exception
      */
-    public function displayDashboard(): array
+    public function displayBotsDashboard(): string
     {
-        return $this->botRepository->displayDashboard();
-    }
-
-    /**
-     * @return array
-     */
-    public function displayBotsList(): array
-    {
-        return $this->botRepository->displayDashboard();
+        $this->setupBlade()->setMode(1);
+        return $this->setupBlade()->run("dashboard", [
+            'bots' => $this->botRepository->getBots()
+        ]);
     }
 
     /**
@@ -44,9 +41,7 @@ class DashboardController
      */
     public function pageNotFound(): string
     {
-        $blade = $this->setupBlade();
-
-        return $blade->run("404");
+        return $this->setupBlade()->run("404");
     }
 
     /**
@@ -54,9 +49,10 @@ class DashboardController
      */
     private function setupBlade(): BladeOne
     {
-        $views = 'public/views';
-        $cache = 'public/cache';
-
-        return new BladeOne($views, $cache,BladeOne::MODE_AUTO);
+        return new BladeOne(
+            self::VIEWS_PATH,
+            self::CACHE_PATH,
+            BladeOne::MODE_AUTO
+        );
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Application\Helpers\Router\Routes;
 
-use App\Infrastructure\Handler\DatabaseHandler;
+use App\Infrastructure\Connector\DatabaseConnector;
 use Symfony\Component\HttpFoundation\Request;
 use App\Infrastructure\Repository\BotRepository;
 use App\Application\Controller\DashboardController;
@@ -15,10 +15,7 @@ class WebRoutes
 
         switch ($request->getPathInfo()) {
             case '/':
-                echo $dashboardController->displayDashboard();
-                break;
-            case '/bots':
-                echo $dashboardController->displayBotsList();
+                echo $dashboardController->displayBotsDashboard();
                 break;
             default:
                 echo $dashboardController->pageNotFound();
@@ -28,8 +25,8 @@ class WebRoutes
 
     private function setupController(): DashboardController
     {
-        $databaseHandler = new DatabaseHandler();
-        $botRepository = new BotRepository($databaseHandler);
+        $databaseConnector = new DatabaseConnector();
+        $botRepository = new BotRepository($databaseConnector);
 
         return new DashboardController($botRepository);
     }

@@ -2,14 +2,14 @@
 
 namespace App\Application\Validator;
 
-class UserValidator implements UserValidatorInterface
+class BotValidator implements BotValidatorInterface
 {
     /***
-     * @param array $userData
+     * @param array $botData
      *
      * @return array
      */
-    public function validateUserData(array $userData): array
+    public function validateBotData(array $botData): array
     {
         $keys = [
             'seosprintId',
@@ -18,11 +18,11 @@ class UserValidator implements UserValidatorInterface
         ];
 
         foreach ($keys as $key) {
-            if (!array_key_exists($key, $userData)) {
-                $userData[$key] = null;
+            if (!array_key_exists($key, $botData)) {
+                $botData[$key] = null;
             }
         }
 
-        return $userData;
+        return $botData;
     }
 }

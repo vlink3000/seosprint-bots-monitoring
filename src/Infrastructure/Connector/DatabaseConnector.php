@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infrastructure\Handler;
+namespace App\Infrastructure\Connector;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class DatabaseHandler
+class DatabaseConnector
 {
     public function getConnection(): Capsule
     {
