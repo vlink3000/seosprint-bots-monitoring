@@ -29,7 +29,6 @@ class DashboardController
      */
     public function displayBotsDashboard(): string
     {
-        $this->setupBlade()->setMode(1);
         return $this->setupBlade()->run("dashboard", [
             'bots' => $this->botRepository->getBots()
         ]);
@@ -51,8 +50,7 @@ class DashboardController
     {
         return new BladeOne(
             self::VIEWS_PATH,
-            self::CACHE_PATH,
-            BladeOne::MODE_AUTO
+            self::CACHE_PATH
         );
     }
 }
