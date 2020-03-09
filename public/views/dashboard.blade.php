@@ -7,7 +7,7 @@
                 <th>Id</th>
                 <th>Seosprint Id</th>
                 <th>Balance</th>
-                <ht>Clicks</ht>
+                <th>Clicks</th>
                 <th>Bot Name</th>
                 <th>Last Update</th>
             </tr>
