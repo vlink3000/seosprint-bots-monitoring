@@ -34,7 +34,7 @@ class BotRepository implements BotRepositoryInterface
         try {
             $eloquent->table(self::TABLE)->updateOrInsert(['seosprint_id' => $bot->getSeosprintId()],
                 [
-                    'bot_name' => $bot->getUserName(),
+                    'bot_name' => $bot->getBotName(),
                     'balance' => $bot->getBalance(),
                     'time' => $bot->getDateTime()
                 ]

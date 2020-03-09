@@ -2,12 +2,14 @@
 
 namespace App\Application\Validator;
 
+use Symfony\Component\HttpFoundation\Request;
+
 interface BotValidatorInterface
 {
     /**
-     * @param array $botData
+     * @param Request $request
      *
      * @return array
      */
-    public function validateBotData(array $botData): array;
+    public function validateBotData(Request $request): array;
 }

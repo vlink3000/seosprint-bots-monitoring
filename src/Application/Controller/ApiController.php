@@ -5,15 +5,16 @@ namespace App\Application\Controller;
 use App\Domain\Bot\Factory\BotFactory;
 use App\Infrastructure\Connector\DatabaseConnector;
 use App\Infrastructure\Repository\BotRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApiController
 {
     /**
-     * @param array $request
+     * @param Request $request
      *
      * @return void
      */
-    public function processRequest(array $request): void
+    public function processRequest(Request $request): void
     {
         $userFactory = new BotFactory();
         $databaseConnector = new DatabaseConnector();
