@@ -5,8 +5,9 @@
             <thead>
             <tr class="text-center">
                 <th>Id</th>
-                <th>Balance</th>
                 <th>Seosprint Id</th>
+                <th>Balance</th>
+                <ht>Clicks</ht>
                 <th>Bot Name</th>
                 <th>Last Update</th>
             </tr>
@@ -15,10 +16,11 @@
             @foreach($bots as $bot)
                 <tr class="text-center">
                     <td>{{$bot->id}}</td>
-                    <td>{{$bot->balance}}</td>
                     <td>{{$bot->seosprint_id}}</td>
+                    <td>{{$bot->balance}}</td>
+                    <td>{{$bot->clicks}}</td>
                     <td>{{$bot->bot_name}}</td>
-                    <td>{{$bot->time}}</td>
+                    <td>{{\Carbon\Carbon::parseFromLocale($bot->time, 'PL')->setTimezone('Europe/Warsaw')->toTimeString()}}</td>
                 </tr>
             @endforeach
             </tbody>

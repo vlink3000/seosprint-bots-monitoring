@@ -16,14 +16,11 @@ class BotValidator implements BotValidatorInterface
         $keys = [
             'seosprintId',
             'botName',
-            'balance'
+            'balance',
+            'clicked'
         ];
 
-//        $botData = $request->getContent();
-
-
-//        var_dump($request->getContent());die();
-        var_dump($request->getConte);die();
+        $botData = $this->toArray($request);
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $botData)) {
@@ -32,5 +29,15 @@ class BotValidator implements BotValidatorInterface
         }
 
         return $botData;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    private function toArray (Request $request): array
+    {
+        return json_decode($request->getContent(), true);
     }
 }

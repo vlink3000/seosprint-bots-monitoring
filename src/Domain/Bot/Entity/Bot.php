@@ -19,6 +19,10 @@ class Bot
      */
     private $balance;
     /**
+     * @var bool|null
+     */
+    private $clicked;
+    /**
      * @var Carbon
      */
     private $dateTime;
@@ -69,6 +73,22 @@ class Bot
     public function setBalance(?float $balance): void
     {
         $this->balance = $balance;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getClicked(): ?bool
+    {
+        return $this->clicked;
+    }
+
+    /**
+     * @param bool|null $clicked
+     */
+    public function setClicked(?bool $clicked): void
+    {
+        $this->clicked = $clicked;
     }
 
     /**

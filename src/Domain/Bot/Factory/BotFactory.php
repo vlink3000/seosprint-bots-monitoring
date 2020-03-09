@@ -19,15 +19,14 @@ class BotFactory
         $validator = new BotValidator();
         $validatedBot = $validator->validateBotData($request);
 
-        $user = new Bot();
+        $bot = new Bot();
 
-        var_dump($validatedBot);die();
+        $bot->setSeosprintId($validatedBot['seosprintId']);
+        $bot->setBotName($validatedBot['botName']);
+        $bot->setBalance($validatedBot['balance']);
+        $bot->setClicked($validatedBot['clicked']);
+        $bot->setDateTime(Carbon::now());
 
-        $user->setSeosprintId($validatedBot['seosprintId']);
-        $user->setBotName($validatedBot['botName']);
-        $user->setBalance($validatedBot['balance']);
-        $user->setDateTime(Carbon::now());
-
-        return $user;
+        return $bot;
     }
 }

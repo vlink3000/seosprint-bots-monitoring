@@ -32,9 +32,11 @@ class BotRepository implements BotRepositoryInterface
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
+            $clicks = $eloquent->table(self::TABLE)->where('seosprint_id', $bot->getSeosprintId())->pluck('clicks')->first();
             $eloquent->table(self::TABLE)->updateOrInsert(['seosprint_id' => $bot->getSeosprintId()],
                 [
                     'bot_name' => $bot->getBotName(),
+                    'clicks' => $bot->getClicked() ? $clicks+1: $clicks,
                     'balance' => $bot->getBalance(),
                     'time' => $bot->getDateTime()
                 ]
@@ -54,7 +56,10 @@ class BotRepository implements BotRepositoryInterface
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
-            return $eloquent->table(self::TABLE)->get()->toArray();
+            return $eloquent->table(self::TABLE)
+                ->orderBy('time', 'desc')
+                ->get()
+                ->toArray();
         } catch (\PDOException $exception) {
             $eloquent->table('logs')->insert([
                 'message' => $exception->getMessage()
