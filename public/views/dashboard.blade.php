@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-        <table class="table table-dark table-hover">
+        <table id="bots-table" class="table table-dark table-hover">
             <thead>
             <tr class="text-center">
                 <th>Id</th>
@@ -25,4 +25,13 @@
             @endforeach
             </tbody>
         </table>
+        <script>
+            var myTable = document.getElementById('bots-table');
+
+            var dataTable = new DataTable(myTable, {
+                sortable: true,
+                searchable: false,
+                perPage: 100,
+            });
+        </script>
 @endsection
