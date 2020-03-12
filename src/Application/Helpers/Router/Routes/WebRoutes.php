@@ -9,6 +9,11 @@ use App\Application\Controller\DashboardController;
 
 class WebRoutes
 {
+    /**
+     * @param Request $request
+     *
+     * @throws \Exception
+     */
     public function handleRoute(Request $request)
     {
         $dashboardController = $this->setupController();
@@ -17,12 +22,18 @@ class WebRoutes
             case '/':
                 echo $dashboardController->displayBotsDashboard();
                 break;
+            case '/logs':
+                echo $dashboardController->displayLogsDashboard();
+                break;
             default:
                 echo $dashboardController->pageNotFound();
                 break;
         }
     }
 
+    /**
+     * @return DashboardController
+     */
     private function setupController(): DashboardController
     {
         $databaseConnector = new DatabaseConnector();

@@ -17,4 +17,18 @@ interface BotRepositoryInterface
      * @return array
      */
     public function getBots(): array;
+
+    /**
+     * @return string
+     */
+    public function getDailyRequests(): string;
+    /***
+     * @return array
+     */
+    public function getLogs(): array;
+
+    /***
+     * @return void
+     */
+    public function truncate(): void;
 }

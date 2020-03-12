@@ -8,7 +8,7 @@
     <script src="../public/js/jquery-3.2.1.slim.min.js"></script>
     <script src="../public/js/popper.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../public/js/vanilla-datatable/table.min.js"></script>
+    <script src="../public/js/vanilla-datatable/table.js"></script>
     <title>Bots Dashboard</title>
 </head>
 <body>

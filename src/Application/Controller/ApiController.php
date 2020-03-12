@@ -14,7 +14,7 @@ class ApiController
      *
      * @return void
      */
-    public function processRequest(Request $request): void
+    public function save(Request $request): void
     {
         $userFactory = new BotFactory();
         $databaseConnector = new DatabaseConnector();
@@ -22,5 +22,20 @@ class ApiController
 
         $bot = $userFactory->createFromRequest($request);
         $botRepository->save($bot);
+    }
+
+    /**
+     * @return void
+     */
+    public function truncate(): void
+    {
+        $this->getRepository()->truncate();
+    }
+
+    private function getRepository(): BotRepository
+    {
+        $databaseConnector = new DatabaseConnector();
+
+        return new BotRepository($databaseConnector);
     }
 }

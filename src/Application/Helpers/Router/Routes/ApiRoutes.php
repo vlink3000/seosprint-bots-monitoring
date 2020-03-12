@@ -13,7 +13,10 @@ class ApiRoutes
 
         switch ($request->getPathInfo()) {
             case '/api/v1/save':
-                $apiController->processRequest($request);
+                $apiController->save($request);
+                break;
+            case '/api/v1/truncate':
+                $apiController->truncate();
                 break;
             default:
                 break;

@@ -197,3 +197,7 @@ body {
     text-align: center;
      border-bottom: none;
 }
+
+.dataTable-bottom {
+    display: none!important;
+}
