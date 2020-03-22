@@ -98,6 +98,47 @@ class BotRepository implements BotRepositoryInterface
             return '';
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getDailyCurrency(): string
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_BOTS)
+                ->sum('balance');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getDailyClicks(): string
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_BOTS)
+                ->sum('clicks');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
     /**
      * @return array
      */

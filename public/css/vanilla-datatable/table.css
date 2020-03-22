@@ -120,30 +120,30 @@
 
 .dataTable-sorter::before,
 .dataTable-sorter::after {
-    content: "";
-    height: 0;
-    width: 0;
-    position: absolute;
-    right: -5px;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    opacity: 0.2;
+    /*content: "";*/
+    /*height: 0;*/
+    /*width: 0;*/
+    /*position: absolute;*/
+    /*right: -5px;*/
+    /*border-left: 4px solid transparent;*/
+    /*border-right: 4px solid transparent;*/
+    /*opacity: 0.2;*/
 }
 
 .dataTable-sorter::before {
-    border-top: 5px solid #fff;
-    bottom: 6px;
+    /*border-top: 5px solid #fff;*/
+    /*bottom: 6px;*/
 }
 
 .dataTable-sorter::after {
-    border-bottom: 5px solid #fff;
-    border-top: 5px solid transparent;
-    top: 0px;
+    /*border-bottom: 5px solid #fff;*/
+    /*border-top: 5px solid transparent;*/
+    /*top: 0px;*/
 }
 
 .asc .dataTable-sorter::after,
 .desc .dataTable-sorter::before {
-    opacity: 0.6;
+    /*opacity: 0.6;*/
 }
 
 .dataTables-empty {
@@ -151,9 +151,9 @@
 }
 
 .dataTable-top::after, .dataTable-bottom::after {
-    clear: both;
-    content: " ";
-    display: table;
+    /*clear: both;*/
+    /*content: " ";*/
+    /*display: table;*/
 }
 body {
     font-size: 16px;

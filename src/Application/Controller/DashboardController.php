@@ -30,8 +30,10 @@ class DashboardController
     public function displayBotsDashboard(): string
     {
         return $this->setupBlade()->run("dashboard", [
-            'requests' => $this->botRepository->getDailyRequests(),
-            'bots' => $this->botRepository->getBots()
+            'bots' => $this->botRepository->getBots(),
+            'currency' => $this->botRepository->getDailyCurrency(),
+            'clicks' => $this->botRepository->getDailyClicks(),
+            'requests' => $this->botRepository->getDailyRequests()
         ]);
     }
 

@@ -13,7 +13,7 @@ interface BotRepositoryInterface
      */
     public function save(Bot $bot): void;
 
-    /***
+    /**
      * @return array
      */
     public function getBots(): array;
@@ -22,12 +22,23 @@ interface BotRepositoryInterface
      * @return string
      */
     public function getDailyRequests(): string;
-    /***
+
+    /**
+     * @return string
+     */
+    public function getDailyCurrency(): string;
+
+    /**
+     * @return string
+     */
+    public function getDailyClicks(): string;
+
+    /**
      * @return array
      */
     public function getLogs(): array;
 
-    /***
+    /**
      * @return void
      */
     public function truncate(): void;

@@ -32,6 +32,9 @@ class ApiController
         $this->getRepository()->truncate();
     }
 
+    /**
+     * @return BotRepository
+     */
     private function getRepository(): BotRepository
     {
         $databaseConnector = new DatabaseConnector();
