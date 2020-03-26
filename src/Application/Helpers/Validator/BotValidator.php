@@ -16,6 +16,7 @@ class BotValidator implements BotValidatorInterface
         $keys = [
             'seosprintId',
             'botName',
+            'level',
             'balance',
             'clicked'
         ];

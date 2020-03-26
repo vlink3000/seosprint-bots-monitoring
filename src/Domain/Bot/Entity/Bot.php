@@ -15,6 +15,10 @@ class Bot
      */
     private $botName;
     /**
+     * @var string|null
+     */
+    private $level;
+    /**
      * @var float|null
      */
     private $balance;
@@ -49,6 +53,22 @@ class Bot
     public function getBotName(): ?string
     {
         return $this->botName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLevel(): ?string
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param null|string $level
+     */
+    public function setLevel(?string $level): void
+    {
+        $this->level = $level;
     }
 
     /**

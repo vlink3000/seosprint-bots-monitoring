@@ -44,6 +44,7 @@ class BotRepository implements BotRepositoryInterface
             $clicks = $eloquent->table(self::TABLE_BOTS)->where('seosprint_id', $bot->getSeosprintId())->pluck('clicks')->first();
             $eloquent->table(self::TABLE_BOTS)->updateOrInsert(['seosprint_id' => $bot->getSeosprintId()], [
                     'bot_name' => $bot->getBotName(),
+                    'level' => $bot->getLevel(),
                     'clicks' => $bot->getClicked() ? $clicks+1: $clicks+0,
                     'balance' => $bot->getBalance(),
                     'time' => $bot->getDateTime()
