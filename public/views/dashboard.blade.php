@@ -35,19 +35,19 @@
             </div>
             <div class="col-md-3 pl-0 mt-2">
                 <div class="card text-center bg-dark text-white">
-                    <div class="card-header">Daily Balance</div>
+                    <div class="card-header bg-secondary">Daily Balance</div>
                     <div class="card-body">{{json_decode(round($daily_currency, 2))}}</div>
                 </div>
                 <div class="card text-center mt-2 bg-dark text-white">
-                    <div class="card-header">Balance</div>
+                    <div class="card-header bg-secondary">Balance</div>
                     <div class="card-body">{{json_decode($currency)}}</div>
                 </div>
                 <div class="card text-center mt-2 bg-dark text-white">
-                    <div class="card-header">Clicks</div>
+                    <div class="card-header bg-secondary">Clicks</div>
                     <div class="card-body">{{json_decode($clicks)}}</div>
                 </div>
                 <div class="card text-center bg-dark text-white mt-2">
-                    <div class="card-header">Requests</div>
+                    <div class="card-header bg-secondary">Requests</div>
                     <div class="card-body">{{json_decode($requests)[0]->requests}}</div>
                 </div>
             </div>
