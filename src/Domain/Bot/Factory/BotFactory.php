@@ -25,6 +25,7 @@ class BotFactory
         $bot->setBotName($validatedBot['botName']);
         $bot->setLevel($validatedBot['level']);
         $bot->setBalance($validatedBot['balance']);
+        $bot->setDailyBalance($validatedBot['clickAmount']);
         $bot->setClicked($validatedBot['clicked']);
         $bot->setDateTime(Carbon::now());
 

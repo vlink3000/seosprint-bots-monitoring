@@ -17,6 +17,7 @@ class BotValidator implements BotValidatorInterface
             'seosprintId',
             'botName',
             'level',
+            'clickAmount',
             'balance',
             'clicked'
         ];

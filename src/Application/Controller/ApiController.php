@@ -16,11 +16,11 @@ class ApiController
      */
     public function save(Request $request): void
     {
-        $userFactory = new BotFactory();
+        $botFactory = new BotFactory();
         $databaseConnector = new DatabaseConnector();
         $botRepository = new BotRepository($databaseConnector);
 
-        $bot = $userFactory->createFromRequest($request);
+        $bot = $botFactory->createFromRequest($request);
         $botRepository->save($bot);
     }
 

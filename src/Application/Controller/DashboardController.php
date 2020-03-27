@@ -31,7 +31,8 @@ class DashboardController
     {
         return $this->setupBlade()->run("dashboard", [
             'bots' => $this->botRepository->getBots(),
-            'currency' => $this->botRepository->getDailyCurrency(),
+            'daily_currency' => $this->botRepository->getDailyBalance(),
+            'currency' => $this->botRepository->getBalance(),
             'clicks' => $this->botRepository->getDailyClicks(),
             'requests' => $this->botRepository->getDailyRequests()
         ]);

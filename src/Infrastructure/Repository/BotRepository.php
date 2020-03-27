@@ -41,12 +41,18 @@ class BotRepository implements BotRepositoryInterface
                     'requests' => $requests+1,
                 ]
             );
-            $clicks = $eloquent->table(self::TABLE_BOTS)->where('seosprint_id', $bot->getSeosprintId())->pluck('clicks')->first();
+            $clicks = $eloquent->table(self::TABLE_BOTS)
+                ->where('seosprint_id', $bot->getSeosprintId())
+                ->pluck('clicks')->first();
+            $dailyBalance = $eloquent->table(self::TABLE_BOTS)
+                ->where('seosprint_id', $bot->getSeosprintId())
+                ->pluck('daily_balance')->first();
             $eloquent->table(self::TABLE_BOTS)->updateOrInsert(['seosprint_id' => $bot->getSeosprintId()], [
                     'bot_name' => $bot->getBotName(),
                     'level' => $bot->getLevel(),
                     'clicks' => $bot->getClicked() ? $clicks+1: $clicks+0,
                     'balance' => $bot->getBalance(),
+                    'daily_balance' => $bot->getDailyBalance() === 0 ? $dailyBalance: $dailyBalance + $bot->getDailyBalance(),
                     'time' => $bot->getDateTime()
                 ]
             );
@@ -103,7 +109,27 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @return string
      */
-    public function getDailyCurrency(): string
+    public function getDailyBalance(): string
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_BOTS)
+                ->sum('daily_balance');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getBalance(): string
     {
         $eloquent = $this->databaseHandler->getConnection();
 

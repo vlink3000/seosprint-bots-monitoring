@@ -9,6 +9,7 @@
                     <tr class="text-center">
                         <th>Id</th>
                         <th>Seosprint Id</th>
+                        <th>Daily Balance</th>
                         <th>Balance</th>
                         <th>Clicks</th>
                         <th>Bot Name</th>
@@ -21,6 +22,7 @@
                             <tr @if($bot->balance >= 15.00)class="text-center bg-success" @elseif($bot->balance >= 14.00)class="text-center bg-success-part" @else class="text-center" @endif>
                                 <td>{{$bot->id}}</td>
                                 <td>{{$bot->seosprint_id}}</td>
+                                <td>{{round($bot->daily_balance, 2)}}</td>
                                 <td>{{$bot->balance}}</td>
                                 <td>{{$bot->clicks}}</td>
                                 <td>{{$bot->bot_name}}</td>
@@ -33,6 +35,10 @@
             </div>
             <div class="col-md-3 pl-0 mt-2">
                 <div class="card text-center bg-dark text-white">
+                    <div class="card-header">Daily Balance</div>
+                    <div class="card-body">{{json_decode(round($daily_currency, 2))}}</div>
+                </div>
+                <div class="card text-center mt-2 bg-dark text-white">
                     <div class="card-header">Balance</div>
                     <div class="card-body">{{json_decode($currency)}}</div>
                 </div>

@@ -26,7 +26,12 @@ interface BotRepositoryInterface
     /**
      * @return string
      */
-    public function getDailyCurrency(): string;
+    public function getDailyBalance(): string;
+
+    /**
+     * @return string
+     */
+    public function getBalance(): string;
 
     /**
      * @return string

@@ -23,6 +23,10 @@ class Bot
      */
     private $balance;
     /**
+     * @var float|null
+     */
+    private $dailyBalance;
+    /**
      * @var bool|null
      */
     private $clicked;
@@ -93,6 +97,22 @@ class Bot
     public function setBalance(?float $balance): void
     {
         $this->balance = $balance;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getDailyBalance(): ?float
+    {
+        return $this->dailyBalance;
+    }
+
+    /**
+     * @param float|null $dailyBalance
+     */
+    public function setDailyBalance(?float $dailyBalance): void
+    {
+        $this->dailyBalance = $dailyBalance;
     }
 
     /**
