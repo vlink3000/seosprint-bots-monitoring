@@ -36,7 +36,9 @@ class BotRepository implements BotRepositoryInterface
 
         try {
             //log request, daily requests inside this table
-            $requests= $eloquent->table(self::TABLE_REQUESTS)->where('id', 1)->pluck('requests')->first();
+            $requests= $eloquent->table(self::TABLE_REQUESTS)
+                ->where('id', 1)
+                ->pluck('requests')->first();
             $eloquent->table(self::TABLE_REQUESTS)->updateOrInsert(['id' => 1], [
                     'requests' => $requests+1,
                 ]
@@ -73,7 +75,7 @@ class BotRepository implements BotRepositoryInterface
 
         try {
             return $eloquent->table(self::TABLE_BOTS)
-                ->orderBy('time', 'desc')
+                ->orderBy('balance', 'desc')
                 ->get()
                 ->toArray();
         } catch (\PDOException $exception) {
@@ -156,6 +158,26 @@ class BotRepository implements BotRepositoryInterface
         try {
             return $eloquent->table(self::TABLE_BOTS)
                 ->sum('clicks');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getBotsCount(): int
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_BOTS)
+                ->count();
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([
                 'message' => $exception->getMessage(),

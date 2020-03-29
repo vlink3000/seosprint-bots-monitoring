@@ -34,7 +34,9 @@ class DashboardController
             'daily_currency' => $this->botRepository->getDailyBalance(),
             'currency' => $this->botRepository->getBalance(),
             'clicks' => $this->botRepository->getDailyClicks(),
-            'requests' => $this->botRepository->getDailyRequests()
+            'requests' => $this->botRepository->getDailyRequests(),
+            'bots_count' => $this->botRepository->getBotsCount()
+//            'average_monthly_revenue' => $this->botRepository->getAverageMonthlyRevenue(),
         ]);
     }
 

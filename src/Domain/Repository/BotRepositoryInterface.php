@@ -29,6 +29,11 @@ interface BotRepositoryInterface
     public function getDailyBalance(): string;
 
     /**
+     * @return int
+     */
+    public function getBotsCount(): int;
+
+    /**
      * @return string
      */
     public function getBalance(): string;
