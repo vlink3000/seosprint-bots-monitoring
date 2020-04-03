@@ -27,6 +27,14 @@ class ApiController
     /**
      * @return void
      */
+    public function saveDailyCurrency(): void
+    {
+        $this->getRepository()->saveDailyCurrency();
+    }
+
+    /**
+     * @return void
+     */
     public function truncate(): void
     {
         $this->getRepository()->truncate();

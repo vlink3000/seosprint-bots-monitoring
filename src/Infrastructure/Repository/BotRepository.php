@@ -12,6 +12,7 @@ class BotRepository implements BotRepositoryInterface
     private const TABLE_BOTS = 'bots';
     private const TABLE_LOGS = 'logs';
     private const TABLE_REQUESTS = 'requests';
+    private const TABLE_REVENUE_REPORT = 'revenue_report';
 
     private $databaseHandler;
 
@@ -58,6 +59,28 @@ class BotRepository implements BotRepositoryInterface
                     'time' => $bot->getDateTime()
                 ]
             );
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function saveDailyCurrency(): void
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+
+        try {
+            $eloquent->table(self::TABLE_REVENUE_REPORT)->updateOrInsert(['id' => Carbon::today()->timestamp], [
+                    'requests' => $requests+1,
+                ]
+            );
+
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([
                 'message' => $exception->getMessage(),

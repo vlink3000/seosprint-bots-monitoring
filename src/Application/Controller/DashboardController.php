@@ -29,14 +29,13 @@ class DashboardController
      */
     public function displayBotsDashboard(): string
     {
-        return $this->setupBlade()->run("dashboard", [
+        return $this->setupBlade()->run("dashboard.main", [
             'bots' => $this->botRepository->getBots(),
             'daily_currency' => $this->botRepository->getDailyBalance(),
             'currency' => $this->botRepository->getBalance(),
             'clicks' => $this->botRepository->getDailyClicks(),
             'requests' => $this->botRepository->getDailyRequests(),
             'bots_count' => $this->botRepository->getBotsCount()
-//            'average_monthly_revenue' => $this->botRepository->getAverageMonthlyRevenue(),
         ]);
     }
 

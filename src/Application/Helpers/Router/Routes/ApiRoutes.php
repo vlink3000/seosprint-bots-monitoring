@@ -18,6 +18,9 @@ class ApiRoutes
             case '/api/v1/truncate':
                 $apiController->truncate();
                 break;
+            case '/api/v1/save/daily-currency':
+                $apiController->saveDailyCurrency();
+                break;
             default:
                 break;
         }
