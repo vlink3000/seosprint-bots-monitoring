@@ -21,6 +21,9 @@ class ApiRoutes
             case '/api/v1/save/daily-currency':
                 $apiController->saveDailyCurrency();
                 break;
+            case '/api/v1/dispatch':
+                $apiController->triggerDispatch($request);
+                break;
             default:
                 break;
         }

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Bot\Factory;
 
-use App\Application\Validator\BotValidator;
+use App\Application\Helpers\Validator\BotValidator;
 use App\Domain\Bot\Entity\Bot;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;

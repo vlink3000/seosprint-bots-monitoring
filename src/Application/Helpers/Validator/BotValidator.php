@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Validator;
+namespace App\Application\Helpers\Validator;
 
 use Symfony\Component\HttpFoundation\Request;
 

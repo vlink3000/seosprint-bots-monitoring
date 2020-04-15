@@ -2,9 +2,11 @@
 
 namespace App\Application\Controller;
 
+use App\Application\Helpers\Validator\RequestValidator;
 use App\Domain\Bot\Factory\BotFactory;
 use App\Infrastructure\Connector\DatabaseConnector;
 use App\Infrastructure\Repository\BotRepository;
+use App\Infrastructure\Repository\NotifierRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApiController
@@ -33,6 +35,20 @@ class ApiController
     }
 
     /**
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function triggerDispatch(Request $request): void
+    {
+        $validator = new RequestValidator();
+
+        $this->getNotifierRepository()->triggerDispatch(
+            $validator->validateRequestData($request)
+        );
+    }
+
+    /**
      * @return void
      */
     public function truncate(): void
@@ -48,5 +64,13 @@ class ApiController
         $databaseConnector = new DatabaseConnector();
 
         return new BotRepository($databaseConnector);
+    }
+
+    /**
+     * @return NotifierRepository
+     */
+    private function getNotifierRepository(): NotifierRepository
+    {
+        return new NotifierRepository();
     }
 }
