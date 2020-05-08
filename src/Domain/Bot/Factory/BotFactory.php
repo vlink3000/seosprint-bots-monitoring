@@ -23,11 +23,9 @@ class BotFactory
 
         $bot->setSeosprintId($validatedBot['seosprintId']);
         $bot->setBotName($validatedBot['botName']);
-        $bot->setLevel($validatedBot['level']);
         $bot->setBalance($validatedBot['balance']);
-        $bot->setDailyBalance($validatedBot['clickAmount']);
-        $bot->setClicked($validatedBot['clicked']);
-        $bot->setDateTime(Carbon::now());
+        $bot->setLevel($validatedBot['level']);
+        $bot->setLastRequestAt(Carbon::now());
 
         return $bot;
     }

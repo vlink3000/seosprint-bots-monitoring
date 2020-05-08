@@ -29,11 +29,6 @@ interface BotRepositoryInterface
     public function getMoneyToWithdraw(): string;
 
     /**
-     * @return string
-     */
-    public function getDailyBalance(): string;
-
-    /**
      * @return int
      */
     public function getBotsCount(): int;
@@ -43,10 +38,6 @@ interface BotRepositoryInterface
      */
     public function getBalance(): string;
 
-    /**
-     * @return string
-     */
-    public function getDailyClicks(): string;
 
     /**
      * @return array

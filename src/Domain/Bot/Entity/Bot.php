@@ -15,25 +15,21 @@ class Bot
      */
     private $botName;
     /**
-     * @var string|null
-     */
-    private $level;
-    /**
      * @var float|null
      */
     private $balance;
     /**
-     * @var float|null
+     * @var string|null
      */
-    private $dailyBalance;
-    /**
-     * @var bool|null
-     */
-    private $clicked;
+    private $level;
     /**
      * @var Carbon
      */
-    private $dateTime;
+    private $lastRequestAt;
+    /**
+     * @var string
+     */
+    private $lastClickedAt;
 
     /**
      * @return null|string
@@ -57,22 +53,6 @@ class Bot
     public function getBotName(): ?string
     {
         return $this->botName;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getLevel(): ?string
-    {
-        return $this->level;
-    }
-
-    /**
-     * @param null|string $level
-     */
-    public function setLevel(?string $level): void
-    {
-        $this->level = $level;
     }
 
     /**
@@ -100,50 +80,50 @@ class Bot
     }
 
     /**
-     * @return float|null
+     * @return null|string
      */
-    public function getDailyBalance(): ?float
+    public function getLevel(): ?string
     {
-        return $this->dailyBalance;
+        return $this->level;
     }
 
     /**
-     * @param float|null $dailyBalance
+     * @param null|string $level
      */
-    public function setDailyBalance(?float $dailyBalance): void
+    public function setLevel(?string $level): void
     {
-        $this->dailyBalance = $dailyBalance;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getClicked(): ?bool
-    {
-        return $this->clicked;
-    }
-
-    /**
-     * @param bool|null $clicked
-     */
-    public function setClicked(?bool $clicked): void
-    {
-        $this->clicked = $clicked;
+        $this->level = $level;
     }
 
     /**
      * @return Carbon
      */
-    public function getDateTime(): Carbon
+    public function getLastRequestAt(): Carbon
     {
-        return $this->dateTime;
+        return $this->lastRequestAt;
     }
 
     /**
-     * @param Carbon $dateTime
+     * @param Carbon $lastRequestAt
      */
-    public function setDateTime(Carbon $dateTime): void
+    public function setLastRequestAt(Carbon $lastRequestAt): void
     {
-        $this->dateTime = $dateTime;
+        $this->lastRequestAt = $lastRequestAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastClickedAt(): string
+    {
+        return $this->lastClickedAt;
+    }
+
+    /**
+     * @param string $lastClickedAt
+     */
+    public function setLastClickedAt(string $lastClickedAt): void
+    {
+        $this->lastClickedAt = $lastClickedAt;
     }
 }

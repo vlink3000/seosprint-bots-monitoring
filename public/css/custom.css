@@ -2,6 +2,10 @@ body {
     background-color: #212529!important;
 }
 
+.bg-success-done {
+    background-color: #189e37;
+}
+
 .bg-success-part {
     background-color: #00800080;
 }

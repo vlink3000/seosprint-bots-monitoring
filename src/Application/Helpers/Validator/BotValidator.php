@@ -14,12 +14,10 @@ class BotValidator implements BotValidatorInterface
     public function validateBotData(Request $request): array
     {
         $keys = [
-            'seosprintId',
             'botName',
-            'level',
-            'clickAmount',
             'balance',
-            'clicked'
+            'level',
+            'lastClickedAt'
         ];
 
         $botData = $this->toArray($request);

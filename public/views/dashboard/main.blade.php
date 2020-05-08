@@ -13,30 +13,6 @@
                             To withdraw: {{$money_to_withdraw}}
                         </li>
                     </ul>
-                    <div class="card text-center bg-dark text-white mb-2">
-                        <div class="card-header bg-secondary">Today monthly Revenue</div>
-                        <div class="card-body">
-                            <h4>
-                            <span class="badge badge-secondary mt-2">
-                                ≈ {{round($daily_currency * Carbon\Carbon::now()->daysInMonth, 2)}} RUB
-                            </span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card text-center bg-dark text-white">
-                        <div class="card-header bg-secondary">Daily Balance / Average per Bot</div>
-                        <div class="card-body">
-                            <h4>
-                            <span class="badge badge-secondary">
-                                {{json_decode(round($daily_currency, 2))}}
-                            </span>
-                                /
-                                <span class="badge badge-danger">
-                               ≈ {{round(json_decode(round($daily_currency, 2))/$bots_count, 2)}}
-                            </span>
-                            </h4>
-                        </div>
-                    </div>
                     <div class="card text-center mt-2 bg-dark text-white">
                         <div class="card-header bg-secondary">Money in System / Average per Bot</div>
                         <div class="card-body">
@@ -47,20 +23,6 @@
                                 /
                                 <span class="badge badge-secondary">
                                 ≈ {{json_decode(round($currency/$bots_count, 2))}}
-                            </span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="card text-center mt-2 bg-dark text-white">
-                        <div class="card-header bg-secondary">Daily Adverts / Average per Bot</div>
-                        <div class="card-body">
-                            <h4>
-                            <span class="badge badge-danger">
-                                {{json_decode($clicks)}}
-                            </span>
-                                /
-                                <span class="badge badge-secondary">
-                                ≈ {{json_decode(round($clicks/$bots_count))}}
                             </span>
                             </h4>
                         </div>
