@@ -12,6 +12,7 @@ class BotRepository implements BotRepositoryInterface
     private const TABLE_BOTS = 'bots';
     private const TABLE_LOGS = 'logs';
     private const TABLE_REQUESTS = 'requests';
+    private const TABLE_DAILY_SNAPSHOT = 'daily_snapshot';
 
     private $databaseHandler;
 
@@ -161,6 +162,31 @@ class BotRepository implements BotRepositoryInterface
 
             return '';
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function createDailySnapshot(): void
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        $todayDate = Carbon::today()->format('Y-m-d');
+
+        try {
+            $eloquent->table(self::TABLE_DAILY_SNAPSHOT)->updateOrInsert(['date' => $todayDate], [
+                    'daily_balance' => $this->getBalance(),
+                    'bots_count' => count($this->getBots()),
+                    'date' => $todayDate
+                ]
+            );
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => $todayDate
+            ]);
+        }
+
     }
 
     /**

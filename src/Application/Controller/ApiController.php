@@ -27,9 +27,9 @@ class ApiController
     /**
      * @return void
      */
-    public function saveDailyCurrency(): void
+    public function createDailySnapshot(): void
     {
-        $this->getRepository()->saveDailyCurrency();
+        $this->getRepository()->createDailySnapshot();
     }
 
 
