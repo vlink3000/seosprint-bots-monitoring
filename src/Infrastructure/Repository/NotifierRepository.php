@@ -6,7 +6,7 @@ use App\Domain\Repository\NotifierRepositoryInterface;
 
 class NotifierRepository implements NotifierRepositoryInterface
 {
-    private const TELEGRAM_BOT_TOKEN = '123';
+    private const TELEGRAM_BOT_TOKEN = '1148325331:AAFcPq5IqIced-_xQ033lThE-rx-0AYdfdY';
     private const URL = 'https://api.telegram.org/bot';
     private const METHOD_SEND_MESSAGE = '/sendMessage?';
 

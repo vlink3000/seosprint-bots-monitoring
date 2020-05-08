@@ -32,6 +32,7 @@ class DashboardController
         return $this->setupBlade()->run("dashboard.main", [
             'bots' => $this->botRepository->getBots(),
             'daily_currency' => $this->botRepository->getDailyBalance(),
+            'money_to_withdraw' => round($this->botRepository->getMoneyToWithdraw(), 2),
             'currency' => $this->botRepository->getBalance(),
             'clicks' => $this->botRepository->getDailyClicks(),
             'requests' => $this->botRepository->getDailyRequests(),

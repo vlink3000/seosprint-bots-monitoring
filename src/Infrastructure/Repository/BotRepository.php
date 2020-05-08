@@ -68,6 +68,27 @@ class BotRepository implements BotRepositoryInterface
     }
 
     /**
+     * @return string
+     */
+    public function getMoneyToWithdraw(): string
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_BOTS)
+            ->where('balance', '>=', 15.00)
+            ->sum('balance');
+
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+    /**
      * @return void
      */
     public function saveDailyCurrency(): void
@@ -75,18 +96,18 @@ class BotRepository implements BotRepositoryInterface
         $eloquent = $this->databaseHandler->getConnection();
 
 
-        try {
-            $eloquent->table(self::TABLE_REVENUE_REPORT)->updateOrInsert(['id' => Carbon::today()->timestamp], [
-                    'requests' => $requests+1,
-                ]
-            );
-
-        } catch (\PDOException $exception) {
-            $eloquent->table(self::TABLE_LOGS)->insert([
-                'message' => $exception->getMessage(),
-                'time' => Carbon::now()
-            ]);
-        }
+//        try {
+//            $eloquent->table(self::TABLE_REVENUE_REPORT)->updateOrInsert(['id' => Carbon::today()->timestamp], [
+//                    'requests' => $requests+1,
+//                ]
+//            );
+//
+//        } catch (\PDOException $exception) {
+//            $eloquent->table(self::TABLE_LOGS)->insert([
+//                'message' => $exception->getMessage(),
+//                'time' => Carbon::now()
+//            ]);
+//        }
     }
 
     /**
