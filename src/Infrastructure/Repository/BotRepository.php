@@ -12,7 +12,7 @@ class BotRepository implements BotRepositoryInterface
     private const TABLE_BOTS = 'bots';
     private const TABLE_LOGS = 'logs';
     private const TABLE_REQUESTS = 'requests';
-    private const TABLE_DAILY_SNAPSHOT = 'daily_snapshot';
+    private const TABLE_SNAPSHOTS = 'snapshots';
 
     private $databaseHandler;
 
@@ -105,15 +105,15 @@ class BotRepository implements BotRepositoryInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getDailyRequests(): string
+    public function getDailyRequests(): array
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
             return $eloquent->table(self::TABLE_REQUESTS)
-                ->get();
+                ->get()->toArray();
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([
                 'message' => $exception->getMessage(),
@@ -125,15 +125,36 @@ class BotRepository implements BotRepositoryInterface
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getBalance(): string
+    public function getBalance(): float
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
             return $eloquent->table(self::TABLE_BOTS)
                 ->sum('balance');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
+    /**
+     * @return float
+     */
+    public function getYesterdayBalance(): float
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_SNAPSHOTS)
+                ->whereDate('date', '=', Carbon::today()->format('Y-m-d'))
+                ->pluck('balance')->first();
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([
                 'message' => $exception->getMessage(),
@@ -167,16 +188,18 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @return void
      */
-    public function createDailySnapshot(): void
+    public function createSnapshot(): void
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         $todayDate = Carbon::today()->format('Y-m-d');
 
         try {
-            $eloquent->table(self::TABLE_DAILY_SNAPSHOT)->updateOrInsert(['date' => $todayDate], [
-                    'daily_balance' => $this->getBalance(),
+            $eloquent->table(self::TABLE_SNAPSHOTS)->updateOrInsert(['date' => $todayDate], [
+                    'balance' => $this->getBalance(),
+                    'balance_to_withdraw' => $this->getMoneyToWithdraw(),
                     'bots_count' => count($this->getBots()),
+                    'requests' => $this->getDailyRequests()[0]->requests,
                     'date' => $todayDate
                 ]
             );

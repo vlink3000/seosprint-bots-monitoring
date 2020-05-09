@@ -19,9 +19,9 @@ interface BotRepositoryInterface
     public function getBots(): array;
 
     /**
-     * @return string
+     * @return array
      */
-    public function getDailyRequests(): string;
+    public function getDailyRequests(): array;
 
     /**
      * @return string
@@ -34,10 +34,14 @@ interface BotRepositoryInterface
     public function getBotsCount(): int;
 
     /**
-     * @return string
+     * @return float
      */
-    public function getBalance(): string;
+    public function getBalance(): float;
 
+    /**
+     * @return float
+     */
+    public function getYesterdayBalance(): float;
 
     /**
      * @return array

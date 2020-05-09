@@ -29,7 +29,7 @@ class ApiController
      */
     public function createDailySnapshot(): void
     {
-        $this->getRepository()->createDailySnapshot();
+        $this->getRepository()->createSnapshot();
     }
 
 

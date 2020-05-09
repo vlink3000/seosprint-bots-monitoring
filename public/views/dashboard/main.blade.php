@@ -8,21 +8,36 @@
             </div>
             <div class="col-md-3 pl-0 mt-2 pr-2">
                 <div class="sticky-top">
-                    <ul class="list-group mb-2">
-                        <li class="list-group-item bg-success text-white text-center">
-                            To withdraw: {{$money_to_withdraw}}
-                        </li>
-                    </ul>
+                    <div class="card text-center mt-0 bg-dark text-white">
+                        <div class="card-header bg-secondary">To withdraw</div>
+                        <div class="card-body">
+                            <h4>
+                            <span class="badge badge-success">
+                                {{$money_to_withdraw}}
+                            </span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="card text-center mt-2 bg-dark text-white">
+                        <div class="card-header bg-secondary">Daily balance</div>
+                        <div class="card-body">
+                            <h4>
+                            <span class="badge badge-success">
+                                {{$daily_balance}}
+                            </span>
+                            </h4>
+                        </div>
+                    </div>
                     <div class="card text-center mt-2 bg-dark text-white">
                         <div class="card-header bg-secondary">Money in System / Average per Bot</div>
                         <div class="card-body">
                             <h4>
                             <span class="badge badge-secondary">
-                                {{json_decode(round($currency, 2))}}
+                                {{$total_currency}}
                             </span>
                                 /
                                 <span class="badge badge-secondary">
-                                ≈ {{json_decode(round($currency/$bots_count, 2))}}
+                                ≈ {{$total_currency_per_bot}}
                             </span>
                             </h4>
                         </div>
@@ -32,11 +47,11 @@
                         <div class="card-body">
                             <h4>
                             <span class="badge badge-secondary">
-                                {{json_decode($requests)[0]->requests}}
+                                {{$requests}}
                             </span>
                                 /
                                 <span class="badge badge-secondary">
-                                ≈ {{round(json_decode($requests)[0]->requests/$bots_count)}}
+                                ≈ {{$requests_per_bot}}
                             </span>
                             </h4>
                         </div>
