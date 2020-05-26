@@ -31,21 +31,19 @@ class DashboardController
     {
         //i know, it is huge... but does not matter, it is POC!
         $bots = $this->botRepository->getBots();
-        $moneyToWithdraw = round($this->botRepository->getMoneyToWithdraw(), 2);
-        $totalCurrency = json_decode(round($this->botRepository->getBalance(), 2));
+        $moneyToWithdraw = round($this->botRepository->getMoneyToWithdraw(), 4);
+        $totalCurrency = json_decode(round($this->botRepository->getBalance(), 4));
         $botsCount = $this->botRepository->getBotsCount();
-        $totalCurrencyPerBot = round($totalCurrency / $botsCount);
         $requests = $this->botRepository->getDailyRequests()[0]->requests;
         $requestsPerBot = round($requests / $botsCount, 0);
         $yesterdayCurrency = round($this->botRepository->getYesterdayBalance(), 2);
-        $dailyBalance = round($totalCurrency - $yesterdayCurrency, 2);
+        $dailyBalance = round($totalCurrency - $yesterdayCurrency, 4);
 
         return $this->setupBlade()->run("dashboard.main", [
             'bots' => $bots,
             'money_to_withdraw' => $moneyToWithdraw,
             'daily_balance' => $dailyBalance,
             'total_currency' => $totalCurrency,
-            'total_currency_per_bot' => $totalCurrencyPerBot,
             'requests' => $requests,
             'requests_per_bot' => $requestsPerBot
         ]);

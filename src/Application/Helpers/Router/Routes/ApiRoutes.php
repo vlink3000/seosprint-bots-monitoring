@@ -15,6 +15,9 @@ class ApiRoutes
             case '/api/v1/save':
                 $apiController->save($request);
                 break;
+            case '/api/v1/payed':
+                $apiController->payed($request);
+                break;
             case '/api/v1/truncate':
                 $apiController->truncate();
                 break;

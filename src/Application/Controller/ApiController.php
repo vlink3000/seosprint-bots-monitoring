@@ -3,6 +3,7 @@
 namespace App\Application\Controller;
 
 use App\Domain\Bot\Factory\BotFactory;
+use App\Domain\Payment\Factory\PaymentFactory;
 use App\Infrastructure\Connector\DatabaseConnector;
 use App\Infrastructure\Repository\BotRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,13 +26,28 @@ class ApiController
     }
 
     /**
+     * @param Request $request
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function payed(Request $request): void
+    {
+        $paymentFactory = new PaymentFactory();
+        $databaseConnector = new DatabaseConnector();
+        $botRepository = new BotRepository($databaseConnector);
+
+        $payment = $paymentFactory->createFromRequest($request);
+        $botRepository->payed($payment);
+    }
+
+    /**
      * @return void
      */
     public function createDailySnapshot(): void
     {
         $this->getRepository()->createSnapshot();
     }
-
 
     /**
      * @return void

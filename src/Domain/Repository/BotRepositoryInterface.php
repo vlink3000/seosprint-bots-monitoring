@@ -3,6 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Bot\Entity\Bot;
+use App\Domain\Payment\Entity\Payment;
 
 interface BotRepositoryInterface
 {
@@ -12,6 +13,13 @@ interface BotRepositoryInterface
      * @return void
      */
     public function save(Bot $bot): void;
+
+    /**
+     * @param Payment $payment
+     *
+     * @return void
+     */
+    public function payed(Payment $payment): void;
 
     /**
      * @return array

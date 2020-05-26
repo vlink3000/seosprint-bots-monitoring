@@ -32,13 +32,9 @@
                         <div class="card-header bg-secondary">Money in System / Average per Bot</div>
                         <div class="card-body">
                             <h4>
-                            <span class="badge badge-secondary">
-                                {{$total_currency}}
-                            </span>
-                                /
                                 <span class="badge badge-secondary">
-                                ≈ {{$total_currency_per_bot}}
-                            </span>
+                                    {{$total_currency}}
+                                </span>
                             </h4>
                         </div>
                     </div>

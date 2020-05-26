@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Payment\Entity\Payment;
 use App\Domain\Repository\BotRepositoryInterface;
 use App\Domain\Bot\Entity\Bot;
 use App\Infrastructure\Connector\DatabaseConnector;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 class BotRepository implements BotRepositoryInterface
 {
     private const TABLE_BOTS = 'bots';
+    private const TABLE_PAYMENTS = 'payments';
     private const TABLE_LOGS = 'logs';
     private const TABLE_REQUESTS = 'requests';
     private const TABLE_SNAPSHOTS = 'snapshots';
@@ -61,6 +63,39 @@ class BotRepository implements BotRepositoryInterface
     }
 
     /**
+     * @param Payment $payment
+     *
+     * @return void
+     */
+    public function payed(Payment $payment): void
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            $amount = $eloquent->table(self::TABLE_PAYMENTS)
+                ->where('payeer_wallet', $payment->getPayeerWallet())
+                ->pluck('amount')->first();
+
+            $eloquent->table(self::TABLE_PAYMENTS)->updateOrInsert(['payeer_wallet' => $payment->getPayeerWallet()], [
+                    'amount' => $amount + $payment->getAmount(),
+                ]
+            );
+
+            $eloquent->table(self::TABLE_PAYMENTS)->updateOrInsert(['payeer_wallet' => $payment->getPayeerWallet()], [
+                    'payeer_wallet' => $payment->getPayeerWallet(),
+                    'amount' => $payment->getAmount() + $amount,
+                    'updated_at' => $payment->getUpdatedAt()
+                ]
+            );
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+        }
+    }
+
+    /**
      * @return string
      */
     public function getMoneyToWithdraw(): string
@@ -69,7 +104,7 @@ class BotRepository implements BotRepositoryInterface
 
         try {
             return $eloquent->table(self::TABLE_BOTS)
-            ->where('balance', '>=', 15.00)
+            ->where('balance', '>=', 0.20)
             ->sum('balance');
 
         } catch (\PDOException $exception) {

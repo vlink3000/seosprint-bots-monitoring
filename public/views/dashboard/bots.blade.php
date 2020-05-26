@@ -10,8 +10,8 @@
     </thead>
     <tbody>
     @foreach($bots as $bot)
-        <tr @if($bot->balance >= 15.00) class="text-center bg-success-done"
-            @elseif($bot->balance >= 14.00) class="text-center bg-success-part"
+        <tr @if($bot->balance >= 0.2000) class="text-center bg-success-done"
+            @elseif($bot->balance >= 0.1957) class="text-center bg-success-part"
             @else class="text-center"
                 @endif
         >
