@@ -142,6 +142,48 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @return array
      */
+    public function getPayments(): array
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_PAYMENTS)
+                ->orderBy('updated_at', 'desc')
+                ->get()
+                ->toArray();
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return [];
+        }
+    }
+
+    /**
+     * @return float
+     */
+    public function getSumOfPayments(): float
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            return $eloquent->table(self::TABLE_PAYMENTS)
+                ->sum('amount');
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+
+            return '';
+        }
+    }
+
+    /**
+     * @return array
+     */
     public function getDailyRequests(): array
     {
         $eloquent = $this->databaseHandler->getConnection();

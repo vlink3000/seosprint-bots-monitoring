@@ -29,6 +29,11 @@ interface BotRepositoryInterface
     /**
      * @return array
      */
+    public function getPayments(): array;
+
+    /**
+     * @return array
+     */
     public function getDailyRequests(): array;
 
     /**
@@ -45,6 +50,11 @@ interface BotRepositoryInterface
      * @return float
      */
     public function getBalance(): float;
+
+    /**
+     * @return float
+     */
+    public function getSumOfPayments(): float;
 
     /**
      * @return float
