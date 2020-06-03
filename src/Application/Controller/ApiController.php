@@ -29,9 +29,9 @@ class ApiController
     /**
      * @param Request $request
      *
-     * @return int
+     * @return \stdClass
      */
-    public function updateTaskState(Request $request): int
+    public function updateTaskState(Request $request): \stdClass
     {
         $taskFactory = new TaskFactory();
         $databaseConnector = new DatabaseConnector();

@@ -18,9 +18,9 @@ interface BotRepositoryInterface
     /**
      * @param Task $task
      *
-     * @return int
+     * @return \stdClass
      */
-    public function updateTaskState(Task $task): int;
+    public function updateTaskState(Task $task): \stdClass;
 
     /**
      * @param Payment $payment

@@ -13,7 +13,7 @@ class Task
      */
     private $taskId;
     /**
-     * @var int
+     * @var ?int
      */
     private $status;
 
@@ -50,17 +50,17 @@ class Task
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getStatus(): int
+    public function getStatus()
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
+     * @param mixed $status
      */
-    public function setStatus(int $status): void
+    public function setStatus($status): void
     {
         $this->status = $status;
     }

@@ -67,21 +67,37 @@ class BotRepository implements BotRepositoryInterface
     /**
      * @param Task $task
      *
-     * @return int
+     * @return \stdClass
      */
-    public function updateTaskState(Task $task): int
+    public function updateTaskState(Task $task): \stdClass
     {
         $eloquent = $this->databaseHandler->getConnection();
 
         try {
-            $eloquent->table(self::TABLE_TASKS)->updateOrInsert(['seosprint_id' => $task->getSeosprintId()], [
+
+            if(is_null($task->getStatus())) {
+                $taskObj = $eloquent->table(self::TABLE_TASKS)
+                    ->where('seosprint_id', $task->getSeosprintId())
+                    ->get()->first();
+                if(is_null($taskObj)){
+                    $mockStatus = new \stdClass();
+                    $mockStatus->status = 0;
+
+                    return $mockStatus;
+                } else{
+
+                    return $taskObj;
+                }
+            } else {
+                $eloquent->table(self::TABLE_TASKS)->updateOrInsert(['seosprint_id' => $task->getSeosprintId()], [
                     'task_id' => $task->getTaskId(),
                     'status' => $task->getStatus()
-            ]);
+                ]);
 
-            return $eloquent->table(self::TABLE_TASKS)
-                ->where('seosprint_id', $task->getSeosprintId())
-                ->pluck('status')->first();
+                return $eloquent->table(self::TABLE_TASKS)
+                    ->where('seosprint_id', $task->getSeosprintId())
+                    ->get()->first();
+            }
 
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([

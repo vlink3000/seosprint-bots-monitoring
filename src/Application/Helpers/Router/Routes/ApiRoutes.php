@@ -16,7 +16,7 @@ class ApiRoutes
                 $apiController->save($request);
                 break;
             case '/api/v1/task':
-                echo($apiController->updateTaskState($request));
+                echo(json_encode($apiController->updateTaskState($request)));
                 break;
             case '/api/v1/payed':
                 $apiController->payed($request);
