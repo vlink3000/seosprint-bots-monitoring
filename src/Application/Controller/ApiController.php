@@ -4,6 +4,7 @@ namespace App\Application\Controller;
 
 use App\Domain\Bot\Factory\BotFactory;
 use App\Domain\Payment\Factory\PaymentFactory;
+use App\Domain\Task\Factory\TaskFactory;
 use App\Infrastructure\Connector\DatabaseConnector;
 use App\Infrastructure\Repository\BotRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,22 @@ class ApiController
 
         $bot = $botFactory->createFromRequest($request);
         $botRepository->save($bot);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return int
+     */
+    public function updateTaskState(Request $request): int
+    {
+        $taskFactory = new TaskFactory();
+        $databaseConnector = new DatabaseConnector();
+        $botRepository = new BotRepository($databaseConnector);
+
+        $task = $taskFactory->createFromRequest($request);
+
+        return $botRepository->updateTaskState($task);
     }
 
     /**

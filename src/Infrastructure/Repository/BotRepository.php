@@ -5,12 +5,14 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Payment\Entity\Payment;
 use App\Domain\Repository\BotRepositoryInterface;
 use App\Domain\Bot\Entity\Bot;
+use App\Domain\Task\Entity\Task;
 use App\Infrastructure\Connector\DatabaseConnector;
 use Carbon\Carbon;
 
 class BotRepository implements BotRepositoryInterface
 {
     private const TABLE_BOTS = 'bots';
+    private const TABLE_TASKS = 'tasks';
     private const TABLE_PAYMENTS = 'payments';
     private const TABLE_LOGS = 'logs';
     private const TABLE_REQUESTS = 'requests';
@@ -54,6 +56,33 @@ class BotRepository implements BotRepositoryInterface
                     'last_request_at' => $bot->getLastRequestAt()
                 ]
             );
+        } catch (\PDOException $exception) {
+            $eloquent->table(self::TABLE_LOGS)->insert([
+                'message' => $exception->getMessage(),
+                'time' => Carbon::now()
+            ]);
+        }
+    }
+
+    /**
+     * @param Task $task
+     *
+     * @return int
+     */
+    public function updateTaskState(Task $task): int
+    {
+        $eloquent = $this->databaseHandler->getConnection();
+
+        try {
+            $eloquent->table(self::TABLE_TASKS)->updateOrInsert(['seosprint_id' => $task->getSeosprintId()], [
+                    'task_id' => $task->getTaskId(),
+                    'status' => $task->getStatus()
+            ]);
+
+            return $eloquent->table(self::TABLE_TASKS)
+                ->where('seosprint_id', $task->getSeosprintId())
+                ->pluck('status')->first();
+
         } catch (\PDOException $exception) {
             $eloquent->table(self::TABLE_LOGS)->insert([
                 'message' => $exception->getMessage(),

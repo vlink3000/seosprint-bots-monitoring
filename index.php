@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Application\Helpers\Router\RouteRecognizer;

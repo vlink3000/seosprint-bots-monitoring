@@ -3,7 +3,7 @@
 namespace App\Domain\Bot\Factory;
 
 use App\Application\Helpers\Validator\BotValidator;
-use App\Domain\Bot\Entity\Bot;
+use App\Domain\Bot\Entity\Task;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,14 +12,14 @@ class BotFactory
     /**
      * @param Request $request
      *
-     * @return Bot
+     * @return Task
      */
-    public function createFromRequest(Request $request): Bot
+    public function createFromRequest(Request $request): Task
     {
         $validator = new BotValidator();
         $validatedBot = $validator->validateBotData($request);
 
-        $bot = new Bot();
+        $bot = new Task();
 
         $bot->setSeosprintId($validatedBot['seosprintId']);
         $bot->setBotName($validatedBot['botName']);
