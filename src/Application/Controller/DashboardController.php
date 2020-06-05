@@ -43,7 +43,7 @@ class DashboardController
             'bots' => $bots,
             'payments' => $payments,
             'money_to_withdraw' => $moneyToWithdraw,
-            'real_money' => $sumOfPayments,
+            'real_money' => $sumOfPayments - ($sumOfPayments  * (7/100)),
             'total_currency' => $totalCurrency,
             'requests' => $requests,
             'requests_per_bot' => $requestsPerBot
