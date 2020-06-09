@@ -8,8 +8,27 @@
     </tr>
     </thead>
     <tbody>
+
+    {{$today = \Carbon\Carbon::today()->toDateString()}}
+    {{$yesterday = \Carbon\Carbon::yesterday()->toDateString()}}
+    {{$twoDaysAgo = \Carbon\Carbon::now()->subDays(2)->toDateString()}}
+
     @foreach($payments as $payment)
-        <tr class="text-center">
+        <tr class="text-center
+            @if(\Carbon\Carbon::parseFromLocale($payment->updated_at, 'PL')
+                    ->setTimezone('Europe/Warsaw')->format('Y-m-d')
+                    == $today
+                ) bg-danger
+            @elseif(\Carbon\Carbon::parseFromLocale($payment->updated_at, 'PL')
+                    ->setTimezone('Europe/Warsaw')->format('Y-m-d')
+                    == $yesterday)
+                bg-info
+            @elseif(\Carbon\Carbon::parseFromLocale($payment->updated_at, 'PL')
+                    ->setTimezone('Europe/Warsaw')->format('Y-m-d')
+                    == $twoDaysAgo)
+                bg-secondary
+            @endif
+        ">
             <td>{{$loop->iteration}}</td>
             <td>{{$payment->payeer_wallet}}</td>
             <td>{{$payment->amount}}</td>
