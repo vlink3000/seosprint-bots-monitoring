@@ -38,12 +38,15 @@ class DashboardController
         $requests = $this->botRepository->getDailyRequests()[0]->requests;
         $requestsPerBot = round($requests / $botsCount, 0);
         $sumOfPayments = round($this->botRepository->getSumOfPayments(), 2);
+        $sumOfPaymentsRub = round($this->usdToRub($sumOfPayments), 2);
+
 
         return $this->setupBlade()->run("dashboard.main", [
             'bots' => $bots,
             'payments' => $payments,
             'money_to_withdraw' => $moneyToWithdraw,
             'real_money' => $sumOfPayments - ($sumOfPayments  * (7/100)),
+            'real_money_rub' => $sumOfPaymentsRub - ($sumOfPaymentsRub  * (7/100)),
             'total_currency' => $totalCurrency,
             'requests' => $requests,
             'requests_per_bot' => $requestsPerBot
@@ -79,5 +82,17 @@ class DashboardController
             self::VIEWS_PATH,
             self::CACHE_PATH
         );
+    }
+
+    /**
+     * @param float $sumOfPayments
+     *
+     * @return float
+     */
+    private function usdToRub(float $sumOfPayments): float
+    {
+        $currencies = json_decode(file_get_contents("https://api.exchangeratesapi.io/latest?base=USD"));
+
+        return $sumOfPayments * $currencies->rates->RUB;
     }
 }

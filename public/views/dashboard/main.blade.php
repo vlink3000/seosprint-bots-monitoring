@@ -26,7 +26,10 @@
                         <div class="card-body">
                             <h4>
                             <span class="badge badge-success">
-                                {{$real_money}}
+                                {{$real_money}} USD
+                            </span>
+                            <span class="badge badge-success">
+                                {{$real_money_rub}} RUB
                             </span>
                             </h4>
                         </div>
